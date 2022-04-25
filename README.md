@@ -1,5 +1,5 @@
 # nodejs-mongoose-week2
-posts API
+使用 mongoose 寫的 posts API
 
 ## 安裝專案
 ```
