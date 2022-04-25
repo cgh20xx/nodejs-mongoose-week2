@@ -48,6 +48,7 @@ const postSchema = new mongoose.Schema(
     // timestamps: true, // mongoose 會自動新增 createdAt 和 updatedAt 欄位。
   }
 );
+// console.log('postSchema:', postSchema);
 
 // 3. 建立 post model
 const PostModel = mongoose.model('Post', postSchema);

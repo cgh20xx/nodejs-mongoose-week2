@@ -29,22 +29,22 @@ const requestListener = async (req, res) => {
   });
 
   if (req.url === '/posts' && req.method === 'GET') {
-    // 查詢所有資料
-    // Model.find() 文件：https://mongoosejs.com/docs/api/model.html#model_Model.find
+    // 查詢所有資料 doc:https://mongoosejs.com/docs/api/model.html#model_Model.find
     const allPost = await PostModel.find();
     handleSuccess(res, allPost);
   } else if (req.url === '/posts' && req.method === 'POST') {
-    // 新增單筆資料
+    // 新增單筆資料 doc:https://mongoosejs.com/docs/api/model.html#model_Model.create
     req.on('end', async () => {
       try {
         const data = JSON.parse(body);
         data.content = data.content?.trim();
         if (!data.content) throw new Error('[新增失敗] content 未填寫');
-        // 4. 新增資料方法：使用 create()
+        // 只開放新增 name tags type image conent
         const newPost = await PostModel.create({
           name: data.name,
           tags: data.tags,
           type: data.type,
+          image: data.image,
           content: data.content,
         });
         handleSuccess(res, newPost);
@@ -53,12 +53,12 @@ const requestListener = async (req, res) => {
       }
     });
   } else if (req.url === '/posts' && req.method === 'DELETE') {
-    // 刪除所有資料
+    // 刪除所有資料 doc:https://mongoosejs.com/docs/api/model.html#model_Model.deleteMany
     await PostModel.deleteMany({});
     handleSuccess(res, []);
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
     try {
-      // 刪除單筆資料
+      // 刪除單筆資料 doc:https://mongoosejs.com/docs/api/model.html#model_Model.findByIdAndDelete
       const id = req.url.split('/').pop();
       const deletePostById = await PostModel.findByIdAndDelete(id);
       if (!deletePostById) throw new Error('[刪除失敗] 沒有此 id');
@@ -67,15 +67,26 @@ const requestListener = async (req, res) => {
       errorHandler(res, err);
     }
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
-    // 修改單筆資料
+    // 修改單筆資料 doc:https://mongoosejs.com/docs/api/model.html#model_Model.findByIdAndUpdate
     req.on('end', async () => {
       try {
         const id = req.url.split('/').pop();
         const data = JSON.parse(body);
-        console.log(data);
-        const updatePostById = await PostModel.findByIdAndUpdate(id, data); // todo: 待確認 modify?
-        // 重新取得所有資料
-        console.log(updatePostById); // 這邊拿到的不是 update 過的資料
+        if (data.name) throw new Error('[修改失敗] 不可修改 name');
+        if (!data.content) throw new Error('[修改失敗] content 未填寫');
+        // 只開放修改 tags type image conent (name 不可改)
+        const updatePostById = await PostModel.findByIdAndUpdate(
+          id,
+          {
+            tags: data.tags,
+            type: data.type,
+            image: data.image,
+            content: data.content,
+          },
+          {
+            returnDocument: 'after', // 加這行才會返回更新後的資料，否則為更新前的資料。
+          }
+        );
         successHandler(res, updatePostById);
       } catch (err) {
         errorHandler(res, err);
