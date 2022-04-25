@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // mongoose schema 筆記：https://hackmd.io/@TFOivyvXT-qpG6SieUTfgw/ry2Lp9iV9
 
-// 2. 建立 post schema
+// 建立 post schema
 const postSchema = new mongoose.Schema(
   {
     name: {
@@ -50,7 +50,7 @@ const postSchema = new mongoose.Schema(
 );
 // console.log('postSchema:', postSchema);
 
-// 3. 建立 post model
+// 建立 post model
 const PostModel = mongoose.model('Post', postSchema);
 /* 
   注意：

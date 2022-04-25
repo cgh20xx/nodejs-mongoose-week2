@@ -1,22 +1,9 @@
 const http = require('http');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const HttpControllers = require('./controllers/http');
-const PostsControllers = require('./controllers/posts');
-dotenv.config({ path: './config.env' });
-// DB_CONN 字串若要連到 Mongo Cloud 需登入該網站選擇 Database => Connect => Connect your application 取得
-const dbConn = process.env.DB_CONN.replace(
-  '<password>',
-  process.env.DB_PASSWORD
-);
-
 // 1. 連接資料庫
-mongoose
-  .connect(dbConn)
-  .then(() => {
-    console.log('mongodb 連接成功');
-  })
-  .catch((error) => console.log(error));
+require('./connections');
+// 2. PostsControllers 裡已含建立 post schema 和 model
+const PostsControllers = require('./controllers/posts');
+const HttpControllers = require('./controllers/http');
 
 const requestListener = async (req, res) => {
   let body = '';
@@ -25,14 +12,19 @@ const requestListener = async (req, res) => {
   });
 
   if (req.url === '/posts' && req.method === 'GET') {
+    // 查詢所有資料
     PostsControllers.getPosts({ req, res });
   } else if (req.url === '/posts' && req.method === 'POST') {
+    // 新增單筆資料
     req.on('end', () => PostsControllers.createPost({ req, res, body }));
   } else if (req.url === '/posts' && req.method === 'DELETE') {
+    // 刪除所有資料
     PostsControllers.deletePosts({ req, res });
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
+    // 刪除單筆資料
     PostsControllers.deletePostById({ req, res });
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
+    // 修改單筆資料
     req.on('end', async () =>
       PostsControllers.updatePostById({ req, res, body })
     );
