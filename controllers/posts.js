@@ -86,6 +86,7 @@ const post = {
           runValidators: true,
         }
       );
+      if (!updatePostById) throw new Error('[修改失敗] 沒有此 id');
       handleSuccess(res, updatePostById);
     } catch (err) {
       handleError(res, err);
