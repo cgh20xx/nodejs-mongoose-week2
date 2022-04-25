@@ -1,11 +1,12 @@
-const http = require('http');
 // 1. 連接資料庫
 require('./connections');
-// 2. PostsControllers 裡已含建立 post schema 和 model
+
+// 2. 建立 PostsControllers 及 post schema 和 model
 const PostsControllers = require('./controllers/posts');
 const HttpControllers = require('./controllers/http');
 
-const requestListener = async (req, res) => {
+// 為了模擬 express，app 為 http.createServer(requestListener) 的 requestListener。
+const app = async (req, res) => {
   let body = '';
   req.on('data', (chunk) => {
     body += chunk;
@@ -34,6 +35,4 @@ const requestListener = async (req, res) => {
     HttpControllers.notFound(req, res);
   }
 };
-
-const server = http.createServer(requestListener);
-server.listen(process.env.PORT);
+module.exports = app;

@@ -2,5 +2,27 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "mongoose": "^6.3.1"
-  }
+  },
+  "name": "nodejs-mongoose-week2",
+  "description": "",
+  "version": "1.0.0",
+  "main": "bin/www",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgh20xx/nodejs-mongoose-week2.git"
+  },
+  "keywords": [
+    "mongoose"
+  ],
+  "author": "Hank Hsiao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cgh20xx/nodejs-mongoose-week2/issues"
+  },
+  "homepage": "https://github.com/cgh20xx/nodejs-mongoose-week2#readme"
 }
