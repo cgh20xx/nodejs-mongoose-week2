@@ -48,6 +48,10 @@ $ heroku create
 $ git push heroku master 
 ```
 
+## 到 Heroku 該專案下設定環境變數
+到 Settings -> Config Vars 設定資料庫連線字串和密碼 (DB_CONN、DB_PASSWORD)
+不用設定 PORT (Heroku 已內建)
+
 ## 在瀏覽器打開此專案的 Heroku 網址
 ```
 $ heroku open
