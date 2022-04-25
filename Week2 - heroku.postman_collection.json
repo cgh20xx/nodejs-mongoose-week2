@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "22ce8f32-f73e-4569-a894-8f13e4daac7d",
+		"name": "Week2 - heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得所有資料",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hank-node-mongoose-week2.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"hank-node-mongoose-week2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增單筆資料",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"小花\",\n    \"tags\": [\"公園\"],\n    \"type\": \"person\",\n    \"content\": \"今天要散步\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hank-node-mongoose-week2.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"hank-node-mongoose-week2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有資料",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://hank-node-mongoose-week2.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"hank-node-mongoose-week2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆資料",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://hank-node-mongoose-week2.herokuapp.com/posts/62666d379f2ddd200843b856",
+					"protocol": "https",
+					"host": [
+						"hank-node-mongoose-week2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"62666d379f2ddd200843b856"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改單筆資料",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": [\"花園\", \"景點\"],\n    \"type\": \"person\",\n    \"content\": \"今天真美好\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://hank-node-mongoose-week2.herokuapp.com/posts/62666d379f2ddd200843b812",
+					"protocol": "https",
+					"host": [
+						"hank-node-mongoose-week2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"62666d379f2ddd200843b812"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
